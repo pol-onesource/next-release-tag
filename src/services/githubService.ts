@@ -16,8 +16,8 @@ export const fetchLatestReleaseTag = async () => {
     );
 
     for await (const { data: releases } of releasesPageIterator) {
-      for (const { tag_name: tagName } of releases) {
-        if (/^v\d{2}.*/.test(tagName)) {
+      for (const { tag_name: tagName, draft } of releases) {
+        if (!draft && /^v\d{2}.*/.test(tagName)) {
           return tagName;
         }
       }
